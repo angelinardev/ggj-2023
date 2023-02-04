@@ -53,7 +53,8 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
        
-        {look = context.ReadValue<Vector2>();
+        {
+            look = context.ReadValue<Vector2>();
         }
     }
      public void OnJump(InputAction.CallbackContext context)
@@ -74,6 +75,12 @@ public class PlayerController : MonoBehaviour
          playerCam = GetComponentInChildren<Camera>();
 
          lastPosition = transform.position;
+
+         //hide cursor
+         Cursor.lockState = CursorLockMode.Locked;
+         Cursor.visible = false;
+
+         grounded = true;
          
     }
     private void Update() {
@@ -93,6 +100,12 @@ public class PlayerController : MonoBehaviour
         
         {
             Move();
+            if (lastPosition != transform.position && grounded)
+            {
+            //means we've moved
+                //soundInstance.PlaySound(SoundManager.Sound.PlayerMove, transform.position);
+            }
+            lastPosition = transform.position;
         }
     }
     private void StateHandler()
