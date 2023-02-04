@@ -8,6 +8,25 @@ public class CollectCharacter : MonoBehaviour
    bool isInteracting = false;
    public bool isPickedUp = false;
    GameObject player;
+
+   CollectingInventory instance;
+   DisplayCollected display;
+
+   float zDistance;
+   private void OnTriggerEnter(Collider other) {
+        if (other.tag == "Player" && !isPickedUp)
+        {
+            //show ui maybe
+            isInteracting = true;
+           
+        }
+   }
+   private void OnTriggerExit(Collider other) {
+        if (other.tag == "Player" && !isPickedUp)
+        {
+            isInteracting = false;
+        }
+   }
    private void OnCollisionEnter(Collision other) {
         if (other.collider.tag == "Player" && !isPickedUp)
         {
@@ -27,6 +46,10 @@ public class CollectCharacter : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        instance = GameObject.FindGameObjectWithTag("GameManager").GetComponent<CollectingInventory>();
+        display = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DisplayCollected>();
+
+        zDistance = transform.localScale.z;
     }
 
     // Update is called once per frame
@@ -43,16 +66,34 @@ public class CollectCharacter : MonoBehaviour
 
     void Interact()
     {
+         //increase by 1
+        instance.SetCollected(1);
+        //also change display, to show how much we have collected
+        display.ChangeText(instance.GetCollected());
+        
         //add to player "hand"
         this.transform.parent = player.transform;
         //move it to the player
         //this.transform.position = player.transform.position + offset;
-        this.transform.position = player.transform.position;
+
+        //this.transform.position = player.transform.position;
+
         //give offset, increase float value for further distance
-        this.transform.position += -player.transform.forward * 2.0f; //negative to go behind
+        //offset based off of how much we currently have
+        //this.transform.position += -player.transform.forward * instance.GetCollected() * 0.5f; //negative to go behind
+
+        //what is the z scale?
+
+        this.transform.position += new Vector3(0, 0, zDistance * instance.GetCollected() * -1.0f);
+        //this.transform.localPosition = new Vector3(0, 0, this.transform.localPosition.z);
+
+        //adjust on one axis, only on z side so they form straight line
+        //this.transform.position += new Vector3(0, 0, -player.transform.forward.z * instance.GetCollected());
 
         isPickedUp = true;
         isInteracting = false;
+
     }
+    
 
 }
