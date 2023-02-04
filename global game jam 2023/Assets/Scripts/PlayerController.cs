@@ -67,7 +67,8 @@ public class PlayerController : MonoBehaviour
     }
      void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+         Cursor.lockState = CursorLockMode.Locked;
          //distanceToGround = GetComponent<Collider>().bounds.extents.y;
          startYScale = transform.localScale.y;
          playerCam = GetComponentInChildren<Camera>();
