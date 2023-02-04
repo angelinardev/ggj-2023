@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CollectCharacter : MonoBehaviour
 {
@@ -13,10 +14,13 @@ public class CollectCharacter : MonoBehaviour
    DisplayCollected display;
 
    float zDistance;
+
+   TMP_Text text;
    private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player" && !isPickedUp)
         {
             //show ui maybe
+            text.enabled = true;
             isInteracting = true;
            
         }
@@ -25,23 +29,9 @@ public class CollectCharacter : MonoBehaviour
         if (other.tag == "Player" && !isPickedUp)
         {
             isInteracting = false;
+            text.enabled = false;
         }
    }
-   private void OnCollisionEnter(Collision other) {
-        if (other.collider.tag == "Player" && !isPickedUp)
-        {
-            //show ui maybe
-            isInteracting = true;
-           
-        }
-    }
-
-    private void OnCollisionExit(Collision other) {
-        if (other.collider.tag == "Player" && !isPickedUp)
-        {
-            isInteracting = false;
-        }
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +40,10 @@ public class CollectCharacter : MonoBehaviour
         display = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DisplayCollected>();
 
         zDistance = transform.localScale.z;
+
+        text = GetComponentInChildren<TMP_Text>();
+        //disable to start with
+        text.enabled = false;
     }
 
     // Update is called once per frame
