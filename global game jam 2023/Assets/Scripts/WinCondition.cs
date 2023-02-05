@@ -15,6 +15,8 @@ public class WinCondition : MonoBehaviour
             //simple for now, could maybe make it more complex
             if (instance.GetCollected() == max_amount_needed)
             {
+                Timer._instance.SaveScore();
+
                 //win? win screen?
                 Debug.Log("You win!");
 
