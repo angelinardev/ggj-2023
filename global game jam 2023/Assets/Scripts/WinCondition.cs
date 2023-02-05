@@ -19,7 +19,7 @@ public class WinCondition : MonoBehaviour
                 Debug.Log("You win!");
 
                 //placeholder for now, don't know what it will be
-                SceneManager.LoadScene("EndScreen");
+                SceneManager.LoadScene("End");
 
             }
         }
