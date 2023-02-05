@@ -21,13 +21,20 @@ public class Endbuttons : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         leaderboard = new List<Map>();
-        path = Application.persistentDataPath + "\\scores.txt";
+        path = Application.persistentDataPath + "/scores.txt";
+
+        if(!File.Exists(path)) File.Create(path);
+
 
         if (PlayerPrefs.HasKey("Score"))
         {
             date = PlayerPrefs.GetString("Date");
             time = PlayerPrefs.GetFloat("Score");
+
         }
         else time = float.MaxValue;
         score.text = "Your score:\n" + time.ToString();
@@ -48,7 +55,7 @@ public class Endbuttons : MonoBehaviour
         leaderboard.Add(new Map(date, time));
 
         //bubble sort it
-        for(int o = 0; o <= leaderboard.Count - 2; o++)
+        for(int o = 0; o < leaderboard.Count - 1; o++)
         {
             for(int i = 0; i < o; i++)
             {

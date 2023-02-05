@@ -20,14 +20,19 @@ public class Pause : MonoBehaviour
 
     private void PauseGame()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Time.timeScale = 0f;
         pauseScreen.SetActive(true);
     }
 
     public void PlayGame()
     {
+        paused = false;
         Time.timeScale = 1f;
         pauseScreen.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void ExitGame()

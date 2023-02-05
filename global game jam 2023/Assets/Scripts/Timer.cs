@@ -14,6 +14,12 @@ public class Timer : MonoBehaviour
     private float timer = 0f;
     private string date;
 
+    private void Awake()
+    {
+        if (_instance == null) _instance = this;
+        else Destroy(this);
+    }
+
     private void Start()
     {
         date = DateTime.Now.ToString();
@@ -29,7 +35,7 @@ public class Timer : MonoBehaviour
     // on win, call this function
     public void SaveScore()
     {
-        PlayerPrefs.SetString("Date", date);
+        PlayerPrefs.SetString("Date", date.Split()[0]);
         PlayerPrefs.SetFloat("Score", timer);
     }
 

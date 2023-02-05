@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using MapDS;
+using Unity.VisualScripting;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -25,7 +26,9 @@ public class MenuButtons : MonoBehaviour
     {
         leaderboard = new List<Map>();
 
-        path = Application.persistentDataPath + "\\scores.txt";
+        path = Application.persistentDataPath + "/scores.txt";
+        if (!File.Exists(path)) File.Create(path);
+
         reader = new StreamReader(path);
 
         string line;
@@ -36,10 +39,11 @@ public class MenuButtons : MonoBehaviour
             leaderboard.Add(new Map(date, score));
         }
 
-        scores.text = "Highscores:\n";
+        scores.text = "Highscores:\n\n";
+        int i = 1;
         foreach(Map m in leaderboard)
         {
-            scores.text += m.ToString() + "\n";
+            scores.text += i++.ToString() + ") " + m.ToString() + "\n";
         }
 
         reader.Close();
@@ -110,7 +114,7 @@ namespace MapDS
         public bool Equals(float v) => value == v;
         public bool Equals(Map m) => value == m.value;
 
-        public override string ToString() => key + ", " + value;
+        public override string ToString() => key + ", " + value.ToString("0.00");
 
     }
 
