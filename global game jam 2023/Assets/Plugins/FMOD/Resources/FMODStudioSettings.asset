@@ -359,8 +359,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: ../../../FMOD Studio/GGJ 2023/GGJ 2023.fspro
-  sourceBankPath: ../../../FMOD Studio/GGJ 2023/Build
+  sourceProjectPath: GGJ 2023 FMOD/GGJ 2023.fspro
+  sourceBankPath: GGJ 2023 FMOD/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -381,7 +381,8 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks: []
+  MasterBanks:
+  - Master
   Banks: []
   BanksToLoad: []
   LiveUpdatePort: 9264

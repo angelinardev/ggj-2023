@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{667b3534-6cfb-44f9-89f5-f0618866c11b}">
+		<property name="assetPath">
+			<value>Cry 2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.2451927437641723</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{51f40873-0d7e-4392-b488-9b9f70f7a232}</destination>
+		</relationship>
+	</object>
+</objects>

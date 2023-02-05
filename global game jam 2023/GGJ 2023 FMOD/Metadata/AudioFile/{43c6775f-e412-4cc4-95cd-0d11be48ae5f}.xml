@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{43c6775f-e412-4cc4-95cd-0d11be48ae5f}">
+		<property name="assetPath">
+			<value>TreeStomp2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.0528798185941044</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{51f40873-0d7e-4392-b488-9b9f70f7a232}</destination>
+		</relationship>
+	</object>
+</objects>
