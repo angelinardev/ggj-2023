@@ -42,6 +42,7 @@ public class Enemy : MonoBehaviour
     private bool chasing;
 
     private CollectingInventory collectInstance;
+    private DisplayCollected display;
 
     private void Start()
     {
@@ -52,6 +53,7 @@ public class Enemy : MonoBehaviour
         active = true;
 
         collectInstance = GameObject.FindGameObjectWithTag("GameManager").GetComponent<CollectingInventory>();
+        display = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DisplayCollected>();
 
         StartCoroutine(Roaming());
     }
@@ -178,11 +180,13 @@ public class Enemy : MonoBehaviour
             if (collision.transform.childCount > 2)
             {
                 collectInstance.SetCollected(-1);
+                collision.transform.GetChild(2).GetComponent<CollectCharacter>().isPickedUp = false ;
                 collision.transform.GetChild(2).parent = null;
+                display.ChangeText(collectInstance.GetCollected());
             }
 
             //knock back or something for later
-            rb.AddForce((transform.position - collision.transform.position) * 50, ForceMode.Impulse) ;
+            rb.AddForce((transform.position - collision.transform.position) * 5, ForceMode.Impulse) ;
             Invoke("Restart", 2.73475f);
             enabled = false;
         }
