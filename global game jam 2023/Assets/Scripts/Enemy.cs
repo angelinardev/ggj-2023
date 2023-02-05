@@ -171,11 +171,14 @@ public class Enemy : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
-            collectInstance.SetCollected(-1);
-            collision.transform.GetChild(2).parent = null;
+            if (collision.transform.childCount > 2)
+            {
+                collectInstance.SetCollected(-1);
+                collision.transform.GetChild(2).parent = null;
+            }
 
-            Debug.Log("Added force");
-            rb.AddForce((transform.position - collision.transform.position) * 500, ForceMode.Impulse) ;
+            //knock back or something for later
+            rb.AddForce((transform.position - collision.transform.position) * 50, ForceMode.Impulse) ;
         }
     }
 
