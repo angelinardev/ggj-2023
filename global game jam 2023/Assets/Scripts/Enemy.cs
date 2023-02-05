@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Purchasing;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -43,7 +40,6 @@ public class Enemy : MonoBehaviour
 
     private bool roaming;
     private bool chasing;
-    private bool justTurned = false;
 
     private CollectingInventory collectInstance;
 
@@ -63,6 +59,12 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         //transform.eulerAngles = new Vector3(0, transform.rotation.y, 0);
+
+
+        {
+            Vector3 temp = new Vector3(0, transform.eulerAngles.y);
+            transform.eulerAngles = temp;
+        }
 
         if (player != null && active) state = States.aggo;
         if (player == null && active) state = States.roaming;
@@ -132,9 +134,11 @@ public class Enemy : MonoBehaviour
 
     private void UpdatePlayerPosition()
     {
-        if (player == null) state = States.roaming;
+        if (player == null) {state = States.roaming; return; }
         playerPosition = player;
-        targetDirection = playerPosition.position - transform.position;
+        playerPosition.position = new Vector3(playerPosition.position.x, transform.position.y, playerPosition.position.z);
+        transform.LookAt(playerPosition);
+        //targetDirection = playerPosition.position - transform.position;
     }
 
     private void ResetActive()
@@ -179,6 +183,8 @@ public class Enemy : MonoBehaviour
 
             //knock back or something for later
             rb.AddForce((transform.position - collision.transform.position) * 50, ForceMode.Impulse) ;
+            Invoke("Restart", 2.73475f);
+            enabled = false;
         }
     }
 
@@ -203,5 +209,10 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(timeToUpdate);
 
         }
+    }
+
+    public void Restart()
+    {
+        enabled = true;
     }
 }
