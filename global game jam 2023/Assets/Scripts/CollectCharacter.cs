@@ -86,6 +86,7 @@ public class CollectCharacter : MonoBehaviour
 
         isPickedUp = true;
         isInteracting = false;
+        text.enabled = false;
 
     }
     
