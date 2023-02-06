@@ -198,8 +198,8 @@ public class PlayerController : MonoBehaviour
    
     private void LateUpdate() {
        
-        {Look();
-        }
+        Look();
+        
     }
     public void SetGrounded(bool state)
     {

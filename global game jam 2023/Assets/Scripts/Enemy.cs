@@ -44,6 +44,9 @@ public class Enemy : MonoBehaviour
     private CollectingInventory collectInstance;
     private DisplayCollected display;
 
+    private FMOD.Studio.EventInstance fmodInstance;
+    private FMOD.Studio.EventInstance squirrelInstance;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -54,6 +57,9 @@ public class Enemy : MonoBehaviour
 
         collectInstance = GameObject.FindGameObjectWithTag("GameManager").GetComponent<CollectingInventory>();
         display = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DisplayCollected>();
+
+        fmodInstance = FMODUnity.RuntimeManager.CreateInstance("event:/NPC Events/Sapling Die");
+        squirrelInstance = FMODUnity.RuntimeManager.CreateInstance("event:/NPC Events/Squirrel Noises");
 
         StartCoroutine(Roaming());
     }
@@ -158,7 +164,12 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) active = true;
+        if (other.CompareTag("Player"))
+        {
+            squirrelInstance.start();
+            squirrelInstance.release();
+            active = true;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -186,6 +197,9 @@ public class Enemy : MonoBehaviour
             }
 
             //knock back or something for later
+            fmodInstance.start();
+            fmodInstance.release();
+
             rb.AddForce((transform.position - collision.transform.position) * 5, ForceMode.Impulse) ;
             Invoke("Restart", 2.73475f);
             enabled = false;

@@ -15,7 +15,9 @@ public class CollectCharacter : MonoBehaviour
 
    float zDistance;
 
-   TMP_Text text;
+    private FMOD.Studio.EventInstance fmodInstance;
+
+    public TMP_Text text;
    private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player" && !isPickedUp)
         {
@@ -41,7 +43,9 @@ public class CollectCharacter : MonoBehaviour
 
         zDistance = transform.localScale.z;
 
-        text = GetComponentInChildren<TMP_Text>();
+        fmodInstance = FMODUnity.RuntimeManager.CreateInstance("event:/NPC Events/Sapling Cry");
+
+        //text = GetComponentInChildren<TMP_Text>();
         //disable to start with
         text.enabled = false;
     }
@@ -60,6 +64,9 @@ public class CollectCharacter : MonoBehaviour
 
     void Interact()
     {
+        fmodInstance.start();
+        fmodInstance.release();
+
          //increase by 1
         instance.SetCollected(1);
         //also change display, to show how much we have collected
