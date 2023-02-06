@@ -68,8 +68,7 @@ public class PlayerController : MonoBehaviour
     }
      void Start()
     {
-        Cursor.visible = false;
-         Cursor.lockState = CursorLockMode.Locked;
+        
          //distanceToGround = GetComponent<Collider>().bounds.extents.y;
          startYScale = transform.localScale.y;
          playerCam = GetComponentInChildren<Camera>();
@@ -187,6 +186,8 @@ public class PlayerController : MonoBehaviour
     {
         //turn
         transform.Rotate(Vector3.up * look.x * sensitivity);
+        //cam.transform.Rotate(Vector3.up * look.x * sensitivity);
+        
 
         //look
         lookRotation += (-look.y*sensitivity);
